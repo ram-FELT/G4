@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  web:
+    image: ev5hap/my_test:g_4_web
+    command: gunicorn djangodocker.wsgi:application --bind 0.0.0.0:8000
+    volumes:
+      - ./django/:/usr/src/app/
+      - static_volume:/usr/src/app/staticfiles/
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./django/djangodocker/.env
+    depends_on:
+      - db
+  db:
+    image: ev5hap/my_test:postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=django
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=django
+volumes:
+  postgres_data:
+  static_volume:
