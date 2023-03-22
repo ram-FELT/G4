@@ -7,4 +7,5 @@ cd HW_G4
 docker-compose up -d
 
 Адресс"http://localhost:8000/admin/"
+
 логин/пароль - admin
